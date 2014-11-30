@@ -1,0 +1,13 @@
+apply plugin: 'eclipse'
+apply plugin: 'maven'
+
+description = 'RelPrev'
+
+allprojects {
+	group = 'br.com.modoagil'
+
+	repositories {
+		mavenCentral()
+		maven { url 'http://repo.spring.io/libs-release' }
+	}
+}
