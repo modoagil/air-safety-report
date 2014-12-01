@@ -8,5 +8,9 @@ Documento formal destinado ao reporte voluntário de uma situação de perigo, r
 * [RELPREV CENIPA][]
 * [RELPREV: É MELHOR PREVENIR DO QUE REMEDIAR...][]
 
+## Licença
+RELPREV é um software livre nos termos da [Apache License][] 2.0.
+
+[Apache License]: http://www.apache.org/licenses/LICENSE-2.0
 [RELPREV: É MELHOR PREVENIR DO QUE REMEDIAR...]: http://segurancaaviacaocivil.blogspot.com.br/2013/10/relprev-e-melhor-prevenir-do-que.html
 [RELPREV CENIPA]: http://www.cenipa.aer.mil.br/cenipa/index.php/legislacao/category/7-mca-manual-do-comando-da-aeronautica?download=31%3Amca-3-3
