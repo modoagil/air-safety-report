@@ -2,7 +2,7 @@
 O RELPREV é um Sistema de software que auxilia o Oficial de Segurança de Voo (OSV) responsável pela coleta e disponibilização dos dados, relatórios e outros elementos da prevenção de acidentes aeronáuticos nas unidades da FAB e em conformidade com o que estabelece o MCA 3-3 2012.
 
 ## O que é um RELPREV (Relatório de Prevenção)
-Documento formal destinado ao reporte voluntário de uma situação de perigo, real ou potencial, ou que delas teve conhecimento, facilitando a identificação reativa e pró-ativa dos perigos à segurança operacional.
+É um documento formal destinado ao reporte voluntário de uma situação de perigo, real ou potencial, ou que delas teve conhecimento, facilitando a identificação reativa e pró-ativa dos perigos à segurança operacional.
 
 ## Saiba Mais
 * [RELPREV CENIPA][]
