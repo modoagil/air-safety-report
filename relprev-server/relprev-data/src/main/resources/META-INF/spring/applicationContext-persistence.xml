@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:context="http://www.springframework.org/schema/context" xmlns:util="http://www.springframework.org/schema/util"
-	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
-						http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
-						http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
-						http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.3.xsd">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:context="http://www.springframework.org/schema/context" xmlns:util="http://www.springframework.org/schema/util"
+    xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans classpath:org/springframework/beans/factory/xml/spring-beans-4.1.xsd
+                        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd
+                        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.1.xsd
+                        http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.3.xsd">
 
-	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close" p:driverClass="${jdbc.driver}" 
-		p:jdbcUrl="${jdbc.url}" p:user="${jdbc.user}" p:password="${jdbc.password}" p:acquireRetryDelay="1000"
-		p:maxIdleTime="240" p:maxPoolSize="20" p:minPoolSize="5" p:autoCommitOnClose="false" />
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close" p:driverClass="${jdbc.driver}" 
+        p:jdbcUrl="${jdbc.url}" p:user="${jdbc.user}" p:password="${jdbc.password}" p:acquireRetryDelay="1000"
+        p:maxIdleTime="240" p:maxPoolSize="20" p:minPoolSize="5" p:autoCommitOnClose="false" />
 
-	<util:properties id="jpaProperties" location="classpath:hibernate.properties" />
+    <util:properties id="jpaProperties" location="classpath:hibernate.properties" />
 
-	<bean class="org.springframework.orm.hibernate4.HibernateExceptionTranslator" />
+    <bean class="org.springframework.orm.hibernate4.HibernateExceptionTranslator" />
 
-	<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+    <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
 
-	<bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+    <bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
 
-	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
-		p:dataSource-ref="dataSource" p:jpaProperties-ref="jpaProperties" p:jpaVendorAdapter-ref="jpaVendorAdapter"/>
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+        p:dataSource-ref="dataSource" p:jpaProperties-ref="jpaProperties" p:jpaVendorAdapter-ref="jpaVendorAdapter"/>
 
-	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager" p:entityManagerFactory-ref="entityManagerFactory" />
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager" p:entityManagerFactory-ref="entityManagerFactory" />
 
-	<jpa:repositories base-package="br.com.modoagil.repository,br.com.modoagil.repository.support" factory-class="br.com.modoagil.repository.support.factory.RepositoryFactoryBean"
-		transaction-manager-ref="transactionManager" entity-manager-factory-ref="entityManagerFactory" />
+    <jpa:repositories base-package="br.com.modoagil.repository,br.com.modoagil.repository.support" factory-class="br.com.modoagil.repository.support.factory.RepositoryFactoryBean"
+        transaction-manager-ref="transactionManager" entity-manager-factory-ref="entityManagerFactory" />
 
 </beans>
