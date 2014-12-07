@@ -29,8 +29,7 @@ allprojects {
 
 	// common dependencies
 	dependencies {
-		compile 'org.springframework:spring-context:$springVersion', 
-				'org.apache.commons:commons-lang3:$commonsLangeVersion'
+		compile 'org.apache.commons:commons-lang3:$commonsLangeVersion'
 
 		provided 'org.projectlombok:lombok:$lombokVersion'
 
