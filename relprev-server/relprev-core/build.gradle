@@ -1,0 +1,11 @@
+apply plugin: 'java'
+
+description = 'RelPrev - Core'
+
+// dependencies version
+
+
+// dependencies
+dependencies {
+
+}

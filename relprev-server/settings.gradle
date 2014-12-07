@@ -1,16 +1,3 @@
 rootProject.name = 'relprev-server'
 
-['relprev-core', 'relprev-data', 'relprev-domain', 'relprev-services'].each {
-	def projectDir = new File(rootDir, it)
-	include ":${it}"
-	projectDir.eachDir { dir ->
-		include ":${dir.name}"
-		project(":${dir.name}").projectDir = new File(projectDir.absolutePath, dir.name)
-		if ('cafe' == dir.name) {
-			dir.eachDir { cafe ->
-				include ":${cafe.name}"
-				project(":${cafe.name}").projectDir = new File(dir.absolutePath, cafe.name)
-			}
-		}
-	}
-}
+include 'relprev-core', 'relprev-data', 'relprev-domain', 'relprev-services'
