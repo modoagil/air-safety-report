@@ -1,5 +1,9 @@
 package br.com.modoagil.model;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -24,7 +28,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Entidade para persistência e retorno de JSON de taxonomias de um relatório de prevenção
- * 
+ *
  * @since 07/12/2014
  * @author Bruno César Ribeiro e Silva - <a href="mailto:bruno@brunocesar.com">bruno@brunocesar.com</a>
  */
@@ -32,11 +36,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Hiddenable
 @Table(name = "taxonomias")
 @JsonInclude(Include.NON_EMPTY)
+@EqualsAndHashCode(callSuper = true)
 @Updatable(newinsert = true, updatable = false)
 public class Taxonomia extends AbstractEntity<Taxonomia> {
 
     private static final long serialVersionUID = -8111373397877993819L;
 
+    @Getter
+    @Setter
     @JsonProperty
     @NotNull(message = "validation.Taxonomia.nome.NotNull.message")
     @Column(nullable = false, length = ModelConstants.COLUMN_SIZE_20)
@@ -44,39 +51,19 @@ public class Taxonomia extends AbstractEntity<Taxonomia> {
         message = "validation.Taxonomia.nome.Size.message")
     private String nome;
 
+    @Getter
+    @Setter
     @JsonProperty
     @Column(nullable = false)
     @NotNull(message = "validation.Taxonomia.status.NotNull.message")
     private Boolean status;
 
+    @Getter
+    @Setter
     @JsonProperty
     @Column(name = "padrao_minimo", nullable = false)
     @NotNull(message = "validation.Taxonomia.padraoMinimo.NotNull.message")
     private Boolean padraoMinimo;
-
-    public String getNome() {
-        return this.nome;
-    }
-
-    public void setNome(final String nome) {
-        this.nome = nome;
-    }
-
-    public Boolean getStatus() {
-        return this.status;
-    }
-
-    public void setStatus(final Boolean status) {
-        this.status = status;
-    }
-
-    public Boolean getPadraoMinimo() {
-        return this.padraoMinimo;
-    }
-
-    public void setPadraoMinimo(final Boolean padraoMinimo) {
-        this.padraoMinimo = padraoMinimo;
-    }
 
     /*
      * FORMATAÇÕES
@@ -85,33 +72,21 @@ public class Taxonomia extends AbstractEntity<Taxonomia> {
      * 2). A taxonomia tem uma lista de categorias(TEXTO(15)), onde cada categoria pode conter uma lista com
      * sub-categorias(TEXTO(15)).
      */
+    @Getter
+    @Setter
     @JsonProperty
     @Column(length = ModelConstants.COLUMN_SIZE_600)
-    @Size(min = ModelConstants.FIELD_SIZE_1, max = ModelConstants.FIELD_SIZE_600, 
+    @Size(min = ModelConstants.FIELD_SIZE_1, max = ModelConstants.FIELD_SIZE_600,
         message = "validation.Taxonomia.descricao.Size.message")
     private String descricao;
 
+    @Getter
+    @Setter
     @JsonProperty(value = "categorias")
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "taxonomia_categorias", 
+    @JoinTable(name = "taxonomia_categorias",
         joinColumns = {@JoinColumn(name = "taxonomia_id")},
         inverseJoinColumns = {@JoinColumn(name = "categoria_id")})
     private Set<Categoria> categorias;
-
-    public String getDescricao() {
-        return this.descricao;
-    }
-
-    public void setDescricao(final String descricao) {
-        this.descricao = descricao;
-    }
-
-    public Set<Categoria> getCategorias() {
-        return this.categorias;
-    }
-
-    public void setCategorias(final Set<Categoria> categorias) {
-        this.categorias = categorias;
-    }
 
 }

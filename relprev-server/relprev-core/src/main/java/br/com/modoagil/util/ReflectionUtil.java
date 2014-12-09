@@ -1,4 +1,4 @@
-package br.ufg.inf.model.util;
+package br.com.modoagil.util;
 
 import java.lang.reflect.Field;
 
@@ -6,7 +6,7 @@ import org.springframework.util.ReflectionUtils;
 
 /**
  * Métodos utilitários para reflection
- * 
+ *
  * @since 07/12/2014
  * @author Bruno César Ribeiro e Silva - <a href="mailto:bruno@brunocesar.com">bruno@brunocesar.com</a>
  */
@@ -16,7 +16,7 @@ public final class ReflectionUtil {
 
     /**
      * Seta em um atributo de uma classe o atributo com nome '{@code name}' o valor '{@code value}' no objeto desta instância
-     * 
+     *
      * @param target
      *            objeto a ter o campo e valores setados
      * @param name

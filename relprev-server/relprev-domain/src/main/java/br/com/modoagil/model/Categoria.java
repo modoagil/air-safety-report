@@ -1,5 +1,9 @@
 package br.com.modoagil.model;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Entidade para persistência e retorno de JSON de Categoria
- * 
+ *
  * @since 07/12/2014
  * @author Bruno César Ribeiro e Silva - <a href="mailto:bruno@brunocesar.com">bruno@brunocesar.com</a>
  */
@@ -29,49 +33,32 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Hiddenable
 @Table(name = "categorias")
 @JsonInclude(Include.NON_EMPTY)
+@EqualsAndHashCode(callSuper = true)
 @Updatable(newinsert = true, updatable = false)
 public class Categoria extends AbstractEntity<Categoria> {
 
     private static final long serialVersionUID = 2429958840047244813L;
 
+    @Getter
+    @Setter
     @JsonProperty
     @OneToOne(optional = true)
     @JoinColumn(name = "categoria_pai")
     private Categoria categoriaPai;
 
+    @Getter
+    @Setter
     @JsonProperty
     @JoinColumn(name = "taxonomia_id")
     @ManyToOne(cascade = CascadeType.ALL, optional = false)
     private Taxonomia taxonomia;
 
+    @Getter
+    @Setter
     @JsonProperty
     @Column(nullable = false)
     @NotNull(message = "validation.Categoria.nome.NotNull.message")
     @Size(min = ModelConstants.FIELD_SIZE_1, message = "validation.Categoria.nome.Size.message")
     private String nome;
-
-    public Categoria getCategoriaPai() {
-        return this.categoriaPai;
-    }
-
-    public void setCategoriaPai(final Categoria categoriaPai) {
-        this.categoriaPai = categoriaPai;
-    }
-
-    public Taxonomia getTaxonomia() {
-        return this.taxonomia;
-    }
-
-    public void setTaxonomia(final Taxonomia taxonomia) {
-        this.taxonomia = taxonomia;
-    }
-
-    public String getNome() {
-        return this.nome;
-    }
-
-    public void setNome(final String nome) {
-        this.nome = nome;
-    }
 
 }

@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
 /**
  * Anotação para verificar se a entidade do modelo pode ser atualizada.<br />
  * Quando não, verifica se irá fazer um novo {@code insert} ou lançar exceção
- * 
+ *
  * @since 07/12/2014
  * @author Bruno César Ribeiro e Silva - <a href="mailto:bruno@brunocesar.com">bruno@brunocesar.com</a>
  */

@@ -1,5 +1,9 @@
 package br.com.modoagil.model;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -25,7 +29,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 
 /**
  * Entidade para persistência e representação JSON sobre as ações recomendadas pelo OSV sobre a situação de Risco
- * 
+ *
  * @since 07/12/2014
  * @author Bruno César Ribeiro e Silva - <a href="mailto:bruno@brunocesar.com">bruno@brunocesar.com</a>
  */
@@ -34,16 +38,21 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 @JsonRootName(value = "acao")
 @JsonInclude(Include.NON_EMPTY)
 @Table(name = "acoes_recomendadas")
+@EqualsAndHashCode(callSuper = true)
 @Updatable(newinsert = true, updatable = false)
 public class AcaoRecomendada extends AbstractEntity<AcaoRecomendada> {
 
     private static final long serialVersionUID = 485557117602416591L;
 
+    @Getter
+    @Setter
     @JsonIgnore
     @ManyToOne(optional = false)
     @JoinColumn(name = "relprev_id")
     private RelatorioPrevencao relPrev;
 
+    @Getter
+    @Setter
     @JsonProperty
     @Column(length = ModelConstants.COLUMN_SIZE_60, nullable = false)
     @NotNull(message = "validation.AcaoRecomendada.remetente.NotNull.message")
@@ -52,6 +61,8 @@ public class AcaoRecomendada extends AbstractEntity<AcaoRecomendada> {
         message = "validation.AcaoRecomendada.remetente.Size.message")
     private String remetente;
 
+    @Getter
+    @Setter
     @JsonProperty
     @Column(length = ModelConstants.COLUMN_SIZE_60, nullable = false)
     @NotNull(message = "validation.AcaoRecomendada.destinatario.NotNull.message")
@@ -60,6 +71,8 @@ public class AcaoRecomendada extends AbstractEntity<AcaoRecomendada> {
         message = "validation.AcaoRecomendada.destinatario.Size.message")
     private String destinatario;
 
+    @Getter
+    @Setter
     @JsonProperty
     @Column(length = ModelConstants.COLUMN_SIZE_600, nullable = false)
     @NotNull(message = "validation.AcaoRecomendada.descricao.NotNull.message")
@@ -68,50 +81,12 @@ public class AcaoRecomendada extends AbstractEntity<AcaoRecomendada> {
         message = "validation.AcaoRecomendada.descricao.Size.message")
     private String descricao;
 
+    @Getter
+    @Setter
     @JsonProperty
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
     @NotNull(message = "validation.AcaoRecomendada.data.NotNull.message")
     private Date data;
-
-    public RelatorioPrevencao getRelPrev() {
-        return this.relPrev;
-    }
-
-    public void setRelPrev(final RelatorioPrevencao relPrev) {
-        this.relPrev = relPrev;
-    }
-
-    public String getRemetente() {
-        return this.remetente;
-    }
-
-    public void setRemetente(final String remetente) {
-        this.remetente = remetente;
-    }
-
-    public String getDestinatario() {
-        return this.destinatario;
-    }
-
-    public void setDestinatario(final String destinatario) {
-        this.destinatario = destinatario;
-    }
-
-    public String getDescricao() {
-        return this.descricao;
-    }
-
-    public void setDescricao(final String descricao) {
-        this.descricao = descricao;
-    }
-
-    public Date getData() {
-        return this.data;
-    }
-
-    public void setData(final Date data) {
-        this.data = data;
-    }
 
 }

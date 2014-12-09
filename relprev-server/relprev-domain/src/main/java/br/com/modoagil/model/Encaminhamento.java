@@ -1,5 +1,9 @@
 package br.com.modoagil.model;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -24,25 +28,30 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Entidade para persistência e representação JSON sobre o Encaminhamento realizado pelo OSV
- * 
+ *
  * @since 07/12/2014
  * @author Bruno César Ribeiro e Silva - <a href="mailto:bruno@brunocesar.com">bruno@brunocesar.com</a>
  * @see AbstractInteracao
  */
 @Entity
 @Hiddenable
-@Table(name = "encaminhamentos")
 @JsonInclude(Include.NON_EMPTY)
+@Table(name = "encaminhamentos")
+@EqualsAndHashCode(callSuper = true)
 @Updatable(newinsert = true, updatable = false)
 public class Encaminhamento extends AbstractEntity<Encaminhamento> {
 
     private static final long serialVersionUID = 3651594571617958528L;
 
+    @Getter
+    @Setter
     @JsonIgnore
     @ManyToOne(optional = false)
     @JoinColumn(name = "relprev_id")
     private RelatorioPrevencao relPrev;
 
+    @Getter
+    @Setter
     @JsonProperty
     @Column(length = ModelConstants.COLUMN_SIZE_60, nullable = false)
     @NotNull(message = "validation.Encaminhamento.remetente.NotNull.message")
@@ -51,6 +60,8 @@ public class Encaminhamento extends AbstractEntity<Encaminhamento> {
         message = "validation.Encaminhamento.remetente.Size.message")
     private String remetente;
 
+    @Getter
+    @Setter
     @JsonProperty
     @Column(length = ModelConstants.COLUMN_SIZE_60, nullable = false)
     @NotNull(message = "validation.Encaminhamento.destinatario.NotNull.message")
@@ -59,6 +70,8 @@ public class Encaminhamento extends AbstractEntity<Encaminhamento> {
         message = "validation.Encaminhamento.destinatario.Size.message")
     private String destinatario;
 
+    @Getter
+    @Setter
     @JsonProperty
     @Column(length = ModelConstants.COLUMN_SIZE_600, nullable = false)
     @NotNull(message = "validation.Encaminhamento.descricao.NotNull.message")
@@ -67,50 +80,12 @@ public class Encaminhamento extends AbstractEntity<Encaminhamento> {
         message = "validation.Encaminhamento.descricao.Size.message")
     private String descricao;
 
+    @Getter
+    @Setter
     @JsonProperty
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
     @NotNull(message = "validation.Encaminhamento.data.NotNull.message")
     private Date data;
-
-    public RelatorioPrevencao getRelPrev() {
-        return this.relPrev;
-    }
-
-    public void setRelPrev(final RelatorioPrevencao relPrev) {
-        this.relPrev = relPrev;
-    }
-
-    public String getRemetente() {
-        return this.remetente;
-    }
-
-    public void setRemetente(final String remetente) {
-        this.remetente = remetente;
-    }
-
-    public String getDestinatario() {
-        return this.destinatario;
-    }
-
-    public void setDestinatario(final String destinatario) {
-        this.destinatario = destinatario;
-    }
-
-    public String getDescricao() {
-        return this.descricao;
-    }
-
-    public void setDescricao(final String descricao) {
-        this.descricao = descricao;
-    }
-
-    public Date getData() {
-        return this.data;
-    }
-
-    public void setData(final Date data) {
-        this.data = data;
-    }
 
 }

@@ -1,5 +1,9 @@
 package br.com.modoagil.model;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,7 +27,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 
 /**
  * Entidade para persistência e representação JSON de um Elo SIPAER
- * 
+ *
  * @since 07/12/2014
  * @author Bruno César Ribeiro e Silva - <a href="mailto:bruno@brunocesar.com">bruno@brunocesar.com</a>
  */
@@ -32,16 +36,21 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 @Table(name = "elos_sipaer")
 @JsonInclude(Include.NON_EMPTY)
 @JsonRootName(value = "eloSipaer")
+@EqualsAndHashCode(callSuper = true)
 @Updatable(newinsert = true, updatable = false)
 public class EloSipaer extends AbstractEntity<EloSipaer> {
 
     private static final long serialVersionUID = 3850763253702817582L;
 
+    @Getter
+    @Setter
     @JsonIgnore
     @JoinColumn(name = "usuario_id")
     @ManyToOne(cascade = CascadeType.ALL)
     private Usuario usuario;
 
+    @Getter
+    @Setter
     @JsonProperty
     @Column(nullable = false, length = ModelConstants.COLUMN_SIZE_20)
     @NotNull(message = "validation.EloSipaer.organizacao.NotNull.message")
@@ -49,35 +58,13 @@ public class EloSipaer extends AbstractEntity<EloSipaer> {
         message = "validation.EloSipaer.organizacao.Size.message")
     private String organizacao;
 
+    @Getter
+    @Setter
     @JsonProperty(value = "sigla")
     @Column(name = "sigla_organizacao", nullable = false, length = ModelConstants.COLUMN_SIZE_20)
     @NotNull(message = "validation.EloSipaer.siglaOrganizacao.NotNull.message")
     @Size(min = ModelConstants.FIELD_SIZE_1, max = ModelConstants.FIELD_SIZE_20,
         message = "validation.EloSipaer.siglaOrganizacao.Size.message")
     private String siglaOrganizacao;
-
-    public Usuario getUsuario() {
-        return this.usuario;
-    }
-
-    public void setUsuario(final Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    public String getOrganizacao() {
-        return this.organizacao;
-    }
-
-    public void setOrganizacao(final String organizacao) {
-        this.organizacao = organizacao;
-    }
-
-    public String getSiglaOrganizacao() {
-        return this.siglaOrganizacao;
-    }
-
-    public void setSiglaOrganizacao(final String siglaOrganizacao) {
-        this.siglaOrganizacao = siglaOrganizacao;
-    }
 
 }
