@@ -1,18 +1,12 @@
-apply plugin: 'java'
 apply plugin: 'war'
 apply plugin: 'jetty'
 
 description = 'RelPrev - Services'
 
-// dependencies version
-ext.springMVCVersion = ''
-ext.springHATEOAS = '0.16.0.RELEASE'
-ext.springSecurityVersion = '3.2.5.RELEASE'
-
-// dependencies
 dependencies {
-	compile project(':relprev-data'), 
 
-			'org.springframework.security:spring-security-web:$springSecurityVersion', 
-			'org.springframework.hateoas:spring-hateoas:$springHATEOAS'
+    compile project(':relprev-data'),
+            'org.springframework.security:spring-security-web:3.2.5.RELEASE',
+            'org.springframework.hateoas:spring-hateoas:0.16.0.RELEASE'
+
 }

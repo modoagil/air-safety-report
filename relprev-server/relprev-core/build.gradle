@@ -1,11 +1,7 @@
-apply plugin: 'java'
-
 description = 'RelPrev - Core'
 
-// dependencies version
-
-
-// dependencies
 dependencies {
+
+    compile 'org.springframework:spring-core:4.1.2.RELEASE'
 
 }

@@ -1,40 +1,46 @@
-apply plugin: 'java'
-
 description = 'RelPrev'
 
-// dependencies version
-ext.springVersion = '4.1.2.RELEASE'
-ext.lombokVersion = '1.14.8'
-ext.commonsLangeVersion = '3.3.2'
-
-// test dependencies version
-ext.hamcrestVersion = '1.3'
-ext.junitVersion = '4.11'
-ext.mockitoVersion = '1.10.14'
-
 allprojects {
-	group = 'br.com.modoagil'
 
-	sourceCompatibility = 1.8
+    apply plugin: 'java'
 
-	repositories {
-		jcenter()
+    group = 'br.com.modoagil'
 
-		mavenLocal()
+    sourceCompatibility = 1.8
 
-		mavenCentral()
+    configurations {
+        provided
+        compile.extendsFrom provided
+    }
 
-		maven { url 'http://repo.spring.io/libs-release' }
-	}
+    sourceSets {
 
-	// common dependencies
-	dependencies {
-		compile 'org.apache.commons:commons-lang3:$commonsLangeVersion'
+        main {
+            compileClasspath += configurations.provided
+        }
 
-		provided 'org.projectlombok:lombok:$lombokVersion'
+    }
 
-		testCompile 'junit:junit:$junitVersion', 
-					'org.mockito:mockito-core:$mockitoVersion', 
-					'org.hamcrest:hamcrest-all:$hamcrestVersion'
-	}
+    repositories {
+        jcenter()
+
+        mavenLocal()
+
+        mavenCentral()
+
+        maven { url 'http://repo.spring.io/libs-release' }
+    }
+
+    dependencies {
+
+        compile 'org.apache.commons:commons-lang3:3.3.2'
+
+        provided 'org.projectlombok:lombok:1.14.8'
+
+        testCompile 'junit:junit:4.11',
+                    'org.mockito:mockito-core:1.10.14',
+                    'org.hamcrest:hamcrest-all:1.3'
+
+    }
+
 }

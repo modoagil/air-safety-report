@@ -1,16 +1,11 @@
-apply plugin: 'java'
-
 description = 'RelPrev - Data'
 
-// dependencies version
-ext.springDataVersion = '1.7.1.RELEASE'
-ext.hibernateVersion = '4.3.7.Final'
-
-// dependencies
 dependencies {
-	compile project(':relprev-core'), 
-			project(':relprev-domain'), 
 
-			'org.springframework.data:spring-data-jpa:$springDataVersion', 
-			'org.hibernate:hibernate-entitymanager:$hibernateVersion'
+    compile project(':relprev-core'),
+            project(':relprev-domain'),
+
+            'org.springframework.data:spring-data-jpa:1.7.1.RELEASE',
+            'org.hibernate:hibernate-entitymanager:4.3.7.Final'
+
 }
