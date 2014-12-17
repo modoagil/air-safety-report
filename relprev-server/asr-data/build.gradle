@@ -2,8 +2,8 @@ description = 'Air Safety Report - Data'
 
 dependencies {
 
-    compile project(':relprev-core'),
-            project(':relprev-domain'),
+    compile project(':asr-core'),
+            project(':asr-domain'),
 
             "org.springframework.data:spring-data-jpa:$springDataJPAVersion",
             "org.hibernate:hibernate-entitymanager:$hibernateVersion"

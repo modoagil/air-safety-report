@@ -9,7 +9,7 @@ war {
 
 dependencies {
 
-    compile project(':relprev-data'),
+    compile project(':asr-data'),
             "org.springframework.security:spring-security-web:$springSecurityVersion",
             "org.springframework.hateoas:spring-hateoas:$springHATEOASVersion"
             "org.springframework.ldap:spring-ldap-core:$springSecurityLDAPVersion"
