@@ -1,7 +1,7 @@
-description = 'RelPrev - Core'
+description = 'Air Safety Report - Core'
 
 dependencies {
 
-    compile 'org.springframework:spring-core:4.1.2.RELEASE'
+    compile "org.springframework:spring-context:$springVersion"
 
 }

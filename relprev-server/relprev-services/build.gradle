@@ -1,12 +1,17 @@
 apply plugin: 'war'
 apply plugin: 'jetty'
 
-description = 'RelPrev - Services'
+description = 'Air Safety Report - Services'
+
+war {
+    baseName = 'safety-report'
+}
 
 dependencies {
 
     compile project(':relprev-data'),
-            'org.springframework.security:spring-security-web:3.2.5.RELEASE',
-            'org.springframework.hateoas:spring-hateoas:0.16.0.RELEASE'
+            "org.springframework.security:spring-security-web:$springSecurityVersion",
+            "org.springframework.hateoas:spring-hateoas:$springHATEOASVersion"
+            "org.springframework.ldap:spring-ldap-core:$springSecurityLDAPVersion"
 
 }

@@ -1,11 +1,11 @@
-description = 'RelPrev - Data'
+description = 'Air Safety Report - Data'
 
 dependencies {
 
     compile project(':relprev-core'),
             project(':relprev-domain'),
 
-            'org.springframework.data:spring-data-jpa:1.7.1.RELEASE',
-            'org.hibernate:hibernate-entitymanager:4.3.7.Final'
+            "org.springframework.data:spring-data-jpa:$springDataJPAVersion",
+            "org.hibernate:hibernate-entitymanager:$hibernateVersion"
 
 }
