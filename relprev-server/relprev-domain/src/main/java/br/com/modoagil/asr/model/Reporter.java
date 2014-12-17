@@ -1,8 +1,4 @@
-package br.com.modoagil.model;
-
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+package br.com.modoagil.asr.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,30 +6,30 @@ import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+
 import org.hibernate.validator.constraints.Email;
 
-import br.com.modoagil.model.support.AbstractEntity;
-import br.com.modoagil.model.support.ModelConstants;
-import br.com.modoagil.model.support.annotation.Hiddenable;
-import br.com.modoagil.model.support.annotation.Updatable;
+import br.com.modoagil.asr.model.support.AbstractEntity;
+import br.com.modoagil.asr.model.support.ModelConstants;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Entidade para persistência e retorno de JSON de relatores de um relatório de prevenção
+ * JPA entity and JSON model for reporter of an air safety report
  *
  * @since 07/12/2014
  * @author Bruno César Ribeiro e Silva - <a href="mailto:bruno@brunocesar.com">bruno@brunocesar.com</a>
  */
 @Entity
-@Hiddenable
-@Table(name = "relatores")
+@Table(name = "reporters")
 @JsonInclude(Include.NON_EMPTY)
 @EqualsAndHashCode(callSuper = true)
-@Updatable(newinsert = true, updatable = false)
-public class Relator extends AbstractEntity<Relator> {
+public class Reporter extends AbstractEntity {
 
     private static final long serialVersionUID = -671624807223719350L;
 
@@ -42,28 +38,28 @@ public class Relator extends AbstractEntity<Relator> {
     @JsonProperty
     @Column(length = ModelConstants.COLUMN_SIZE_50)
     @Size(min = ModelConstants.FIELD_SIZE_1, max = ModelConstants.FIELD_SIZE_50,
-    message = "validation.Relator.nome.Size.message")
-    private String nome;
+            message = "validation.Reporter.name.Size.message")
+    private String name;
 
     @Getter
     @Setter
     @JsonProperty
     @Column(length = ModelConstants.COLUMN_SIZE_20)
-    @Pattern(regexp = ModelConstants.TELEFONE_REGEX, message = "validation.Relator.telefoneCelular.Telefone.message")
-    private String telefoneCelular;
+    @Pattern(regexp = ModelConstants.PHONE_PATTERN, message = "validation.Reporter.cellPhone.Phone.message")
+    private String cellPhone;
 
     @Getter
     @Setter
     @JsonProperty
     @Column(length = ModelConstants.COLUMN_SIZE_20)
-    @Pattern(regexp = ModelConstants.TELEFONE_REGEX, message = "validation.Relator.telefoneResidencial.Telefone.message")
-    private String telefoneResidencial;
+    @Pattern(regexp = ModelConstants.PHONE_PATTERN, message = "validation.Reporter.homePhone.Phone.message")
+    private String homePhone;
 
     @Getter
     @Setter
     @JsonProperty
     @Column(length = ModelConstants.COLUMN_SIZE_120)
-    @Email(message = "validation.Relator.email.Email.message", regexp = "[a-zA-Z0-9_\\-\\.]+@[a-zA-Z0-9_\\-\\.]+\\.[a-zA-Z]{2,5}")
+    @Email(message = "validation.Reporter.email.Email.message", regexp = ModelConstants.EMAIL_PATTERN)
     private String email;
 
 }

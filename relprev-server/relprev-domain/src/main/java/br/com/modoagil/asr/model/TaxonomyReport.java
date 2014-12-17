@@ -1,8 +1,4 @@
-package br.com.modoagil.model;
-
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+package br.com.modoagil.asr.model;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -11,27 +7,26 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import br.com.modoagil.model.support.AbstractEntity;
-import br.com.modoagil.model.support.annotation.Hiddenable;
-import br.com.modoagil.model.support.annotation.Updatable;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import br.com.modoagil.asr.model.support.AbstractEntity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Entidade que relaciona um relatório de prevenção a taxonomia e categoria
+ * JPA entity to relates an air safety report on a Category
  *
  * @since 07/12/2014
  * @author Bruno César Ribeiro e Silva - <a href="mailto:bruno@brunocesar.com">bruno@brunocesar.com</a>
  */
 @Entity
-@Hiddenable
 @JsonInclude(Include.NON_EMPTY)
-@Table(name = "relatorio_taxonomia")
+@Table(name = "taxonomy_reports")
 @EqualsAndHashCode(callSuper = true)
-@Updatable(newinsert = true, updatable = false)
-public class RelatorioTaxonomia extends AbstractEntity<RelatorioTaxonomia> {
+public class TaxonomyReport extends AbstractEntity {
 
     private static final long serialVersionUID = -3558622120537900967L;
 
@@ -39,21 +34,21 @@ public class RelatorioTaxonomia extends AbstractEntity<RelatorioTaxonomia> {
     @Setter
     @JsonProperty
     @OneToOne(optional = false)
-    @JoinColumn(name = "relprev_id")
-    private RelatorioPrevencao relPrev;
+    @JoinColumn(name = "asr_id")
+    private AirSafetyReport report;
 
     @Getter
     @Setter
     @JsonProperty
-    @JoinColumn(name = "taxonomia_id")
+    @JoinColumn(name = "taxonomy_id")
     @ManyToOne(cascade = CascadeType.ALL, optional = false)
-    private Taxonomia taxonomia;
+    private Taxonomy taxonomy;
 
     @Getter
     @Setter
     @JsonProperty
-    @JoinColumn(name = "categoria_id")
+    @JoinColumn(name = "category_id")
     @ManyToOne(cascade = CascadeType.ALL, optional = false)
-    private Categoria categoria;
+    private Category category;
 
 }

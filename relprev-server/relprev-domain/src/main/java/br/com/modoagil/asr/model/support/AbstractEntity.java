@@ -1,6 +1,5 @@
-package br.com.modoagil.model.support;
+package br.com.modoagil.asr.model.support;
 
-import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -20,14 +19,15 @@ import org.springframework.data.domain.Persistable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
- * Entidade abstrata para objetos persistentes.<br />
- * Todas as outras entidades persistentes do modelo de dados devem extender esta entidade ou uma sub-classe dela
+ * Abstract entity for JPA entity<br />
+ *
+ * All JPA entities from model must extend this class or a sub-class
  *
  * @since 07/12/2014
  * @author Bruno César Ribeiro e Silva - <a href="mailto:bruno@brunocesar.com">bruno@brunocesar.com</a>
  */
 @MappedSuperclass
-public abstract class AbstractEntity<E extends Serializable> implements Persistable<Long> {
+public abstract class AbstractEntity implements Persistable<Long> {
 
     private static final long serialVersionUID = -2187928984731943693L;
 
@@ -41,28 +41,28 @@ public abstract class AbstractEntity<E extends Serializable> implements Persista
     @Setter
     @Version
     @JsonIgnore
-    private Long versao;
+    private Long version;
 
     @Getter
     @Setter
     @Column
     @JsonIgnore
-    private Boolean hidden;
+    private Boolean removed;
 
     @JsonIgnore
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "data_insercao_alteracao")
-    private Date dataInsercaoAlteracao;
+    @Column(name = "change_date")
+    private Date changeDate;
 
     @Override
     @JsonIgnore
     public boolean isNew() {
-        return this.getId() == null;
+        return getId() == null;
     }
 
     @Override
     public String toString() {
-        return String.format("%s id: %s", this.getClass().getSimpleName(), this.getId());
+        return String.format("%s id: %s", this.getClass().getSimpleName(), getId());
     }
 
 }

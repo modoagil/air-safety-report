@@ -1,8 +1,4 @@
-package br.com.modoagil.model;
-
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+package br.com.modoagil.asr.model;
 
 import java.util.Date;
 
@@ -16,10 +12,11 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import br.com.modoagil.model.support.AbstractEntity;
-import br.com.modoagil.model.support.ModelConstants;
-import br.com.modoagil.model.support.annotation.Hiddenable;
-import br.com.modoagil.model.support.annotation.Updatable;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import br.com.modoagil.asr.model.support.AbstractEntity;
+import br.com.modoagil.asr.model.support.ModelConstants;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -27,19 +24,16 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Entidade para persistência e representação JSON sobre o Encaminhamento realizado pelo OSV
+ * JPA entity and JSON model for forwarding realized by the official flight safety (OSV)
  *
  * @since 07/12/2014
  * @author Bruno César Ribeiro e Silva - <a href="mailto:bruno@brunocesar.com">bruno@brunocesar.com</a>
- * @see AbstractInteracao
  */
 @Entity
-@Hiddenable
 @JsonInclude(Include.NON_EMPTY)
-@Table(name = "encaminhamentos")
+@Table(name = "forwardings")
 @EqualsAndHashCode(callSuper = true)
-@Updatable(newinsert = true, updatable = false)
-public class Encaminhamento extends AbstractEntity<Encaminhamento> {
+public class Forwarding extends AbstractEntity {
 
     private static final long serialVersionUID = 3651594571617958528L;
 
@@ -47,45 +41,42 @@ public class Encaminhamento extends AbstractEntity<Encaminhamento> {
     @Setter
     @JsonIgnore
     @ManyToOne(optional = false)
-    @JoinColumn(name = "relprev_id")
-    private RelatorioPrevencao relPrev;
+    @JoinColumn(name = "asr_id")
+    private AirSafetyReport report;
 
     @Getter
     @Setter
     @JsonProperty
     @Column(length = ModelConstants.COLUMN_SIZE_60, nullable = false)
-    @NotNull(message = "validation.Encaminhamento.remetente.NotNull.message")
-    @Size(min = ModelConstants.FIELD_SIZE_1,
-        max = ModelConstants.FIELD_SIZE_60,
-        message = "validation.Encaminhamento.remetente.Size.message")
-    private String remetente;
+    @NotNull(message = "validation.Forwarding.sender.NotNull.message")
+    @Size(min = ModelConstants.FIELD_SIZE_1, max = ModelConstants.FIELD_SIZE_60,
+            message = "validation.Forwarding.sender.Size.message")
+    private String sender;
 
     @Getter
     @Setter
     @JsonProperty
     @Column(length = ModelConstants.COLUMN_SIZE_60, nullable = false)
-    @NotNull(message = "validation.Encaminhamento.destinatario.NotNull.message")
-    @Size(min = ModelConstants.FIELD_SIZE_1,
-        max = ModelConstants.FIELD_SIZE_60,
-        message = "validation.Encaminhamento.destinatario.Size.message")
-    private String destinatario;
+    @NotNull(message = "validation.Forwarding.addressee.NotNull.message")
+    @Size(min = ModelConstants.FIELD_SIZE_1, max = ModelConstants.FIELD_SIZE_60,
+            message = "validation.Forwarding.addressee.Size.message")
+    private String addressee;
 
     @Getter
     @Setter
     @JsonProperty
     @Column(length = ModelConstants.COLUMN_SIZE_600, nullable = false)
-    @NotNull(message = "validation.Encaminhamento.descricao.NotNull.message")
-    @Size(min = ModelConstants.FIELD_SIZE_1,
-        max = ModelConstants.FIELD_SIZE_600,
-        message = "validation.Encaminhamento.descricao.Size.message")
-    private String descricao;
+    @NotNull(message = "validation.Forwarding.description.NotNull.message")
+    @Size(min = ModelConstants.FIELD_SIZE_1, max = ModelConstants.FIELD_SIZE_600,
+            message = "validation.Forwarding.description.Size.message")
+    private String description;
 
     @Getter
     @Setter
     @JsonProperty
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
-    @NotNull(message = "validation.Encaminhamento.data.NotNull.message")
-    private Date data;
+    @NotNull(message = "validation.Forwarding.date.NotNull.message")
+    private Date date;
 
 }

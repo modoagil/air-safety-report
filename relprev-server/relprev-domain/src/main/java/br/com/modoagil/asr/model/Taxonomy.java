@@ -1,8 +1,4 @@
-package br.com.modoagil.model;
-
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+package br.com.modoagil.asr.model;
 
 import java.util.Set;
 
@@ -17,76 +13,67 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import br.com.modoagil.model.support.AbstractEntity;
-import br.com.modoagil.model.support.ModelConstants;
-import br.com.modoagil.model.support.annotation.Hiddenable;
-import br.com.modoagil.model.support.annotation.Updatable;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import br.com.modoagil.asr.model.support.AbstractEntity;
+import br.com.modoagil.asr.model.support.ModelConstants;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Entidade para persistência e retorno de JSON de taxonomias de um relatório de prevenção
+ * JPA entity and JSON model for taxonomies of an air safety report
  *
  * @since 07/12/2014
  * @author Bruno César Ribeiro e Silva - <a href="mailto:bruno@brunocesar.com">bruno@brunocesar.com</a>
  */
 @Entity
-@Hiddenable
-@Table(name = "taxonomias")
+@Table(name = "taxonomies")
 @JsonInclude(Include.NON_EMPTY)
 @EqualsAndHashCode(callSuper = true)
-@Updatable(newinsert = true, updatable = false)
-public class Taxonomia extends AbstractEntity<Taxonomia> {
+public class Taxonomy extends AbstractEntity {
 
     private static final long serialVersionUID = -8111373397877993819L;
 
     @Getter
     @Setter
     @JsonProperty
-    @NotNull(message = "validation.Taxonomia.nome.NotNull.message")
+    @NotNull(message = "validation.Taxonomy.name.NotNull.message")
     @Column(nullable = false, length = ModelConstants.COLUMN_SIZE_20)
     @Size(min = ModelConstants.FIELD_SIZE_1, max = ModelConstants.FIELD_SIZE_20,
-        message = "validation.Taxonomia.nome.Size.message")
-    private String nome;
+            message = "validation.Taxonomy.name.Size.message")
+    private String name;
 
     @Getter
     @Setter
     @JsonProperty
     @Column(nullable = false)
-    @NotNull(message = "validation.Taxonomia.status.NotNull.message")
+    @NotNull(message = "validation.Taxonomy.status.NotNull.message")
     private Boolean status;
 
     @Getter
     @Setter
     @JsonProperty
-    @Column(name = "padrao_minimo", nullable = false)
-    @NotNull(message = "validation.Taxonomia.padraoMinimo.NotNull.message")
-    private Boolean padraoMinimo;
+    @Column(name = "minimal_standard", nullable = false)
+    @NotNull(message = "validation.Taxonomy.minimalStandard.NotNull.message")
+    private Boolean minimalStandard;
 
-    /*
-     * FORMATAÇÕES
-     * Existem duas formatações para os itens de uma taxonomia, em que o usuário deve escolher uma.
-     * 1). A taxonomia tem somente um campo para uma Descrição(TEXTO(600))
-     * 2). A taxonomia tem uma lista de categorias(TEXTO(15)), onde cada categoria pode conter uma lista com
-     * sub-categorias(TEXTO(15)).
-     */
     @Getter
     @Setter
     @JsonProperty
     @Column(length = ModelConstants.COLUMN_SIZE_600)
     @Size(min = ModelConstants.FIELD_SIZE_1, max = ModelConstants.FIELD_SIZE_600,
-        message = "validation.Taxonomia.descricao.Size.message")
-    private String descricao;
+            message = "validation.Taxonomy.description.Size.message")
+    private String description;
 
     @Getter
     @Setter
-    @JsonProperty(value = "categorias")
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "taxonomia_categorias",
-        joinColumns = {@JoinColumn(name = "taxonomia_id")},
-        inverseJoinColumns = {@JoinColumn(name = "categoria_id")})
-    private Set<Categoria> categorias;
+    @JsonProperty(value = "categories")
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "taxonomy_categories", joinColumns = {@JoinColumn(name = "taxonomy_id")},
+            inverseJoinColumns = {@JoinColumn(name = "category_id")})
+    private Set<Category> categories;
 
 }

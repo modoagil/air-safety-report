@@ -1,8 +1,4 @@
-package br.com.modoagil.model.security;
-
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+package br.com.modoagil.asr.model.security;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,31 +8,31 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+
 import org.hibernate.validator.constraints.Email;
 
-import br.com.modoagil.model.support.AbstractEntity;
-import br.com.modoagil.model.support.ModelConstants;
-import br.com.modoagil.model.support.annotation.Hiddenable;
-import br.com.modoagil.model.support.annotation.Updatable;
+import br.com.modoagil.asr.model.support.AbstractEntity;
+import br.com.modoagil.asr.model.support.ModelConstants;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Entidade para persistência e retorno de JSON de usuário do sistema
- * 
+ * JPA entity and JSON model for users
+ *
  * @created 07/12/2014
  * @author Bruno César Ribeiro e Silva - <a href="mailto:bruno@brunocesar.com">bruno@brunocesar.com</a>
  */
 @Entity
-@Hiddenable
 @JsonInclude(Include.NON_EMPTY)
 @EqualsAndHashCode(callSuper = true)
-@Updatable(newinsert = true, updatable = false)
-@Table(name = "usuarios", uniqueConstraints = {@UniqueConstraint(columnNames = {"email", "usuario", "hidden"}),
+@Table(name = "user", uniqueConstraints = {@UniqueConstraint(columnNames = {"email", "user", "removed"}),
         @UniqueConstraint(columnNames = {"email", "hidden"})})
-public class Usuario extends AbstractEntity<Usuario> {
+public class User extends AbstractEntity {
 
     private static final long serialVersionUID = -2583035988668453632L;
 
@@ -44,98 +40,91 @@ public class Usuario extends AbstractEntity<Usuario> {
     @Setter
     @JsonProperty
     @Column(length = ModelConstants.COLUMN_SIZE_120)
-    @Email(message = "validation.Usuario.email.Email.message", regexp = "[a-zA-Z0-9_\\-\\.]+@[a-zA-Z0-9_\\-\\.]+\\.[a-zA-Z]{2,5}")
+    @Email(message = "validation.User.email.Email.message", regexp = ModelConstants.EMAIL_PATTERN)
     private String email;
 
     @Getter
     @Setter
     @JsonProperty
     @Column(length = ModelConstants.COLUMN_SIZE_30)
-    @Size(min = ModelConstants.FIELD_SIZE_1,
-        max = ModelConstants.FIELD_SIZE_30,
-        message = "validation.Usuario.especialidade.Size.message")
-    private String especialidade;
+    @Size(min = ModelConstants.FIELD_SIZE_1, max = ModelConstants.FIELD_SIZE_30,
+            message = "validation.User.specialty.Size.message")
+    private String specialty;
 
     @Getter
     @Setter
     @JsonProperty
-    @NotNull(message = "validation.Usuario.funcao.NotNull.message")
+    @NotNull(message = "validation.User.function.NotNull.message")
     @Column(nullable = false, length = ModelConstants.COLUMN_SIZE_30)
-    @Size(min = ModelConstants.FIELD_SIZE_1,
-        max = ModelConstants.FIELD_SIZE_60,
-        message = "validation.Usuario.funcao.Size.message")
-    private String funcao;
+    @Size(min = ModelConstants.FIELD_SIZE_1, max = ModelConstants.FIELD_SIZE_60,
+            message = "validation.User.function.Size.message")
+    private String function;
 
     @Getter
     @Setter
     @JsonProperty
-    @NotNull(message = "validation.Usuario.nomeCompleto.NotNull.message")
-    @Column(nullable = false, length = ModelConstants.COLUMN_SIZE_60, name = "nome_completo")
-    @Size(min = ModelConstants.FIELD_SIZE_1,
-        max = ModelConstants.FIELD_SIZE_60,
-        message = "validation.Usuario.nomeCompleto.Size.message")
-    private String nomeCompleto;
+    @NotNull(message = "validation.User.fullName.NotNull.message")
+    @Column(nullable = false, length = ModelConstants.COLUMN_SIZE_60, name = "full_name")
+    @Size(min = ModelConstants.FIELD_SIZE_1, max = ModelConstants.FIELD_SIZE_60,
+            message = "validation.User.fullName.Size.message")
+    private String fullName;
 
     @Getter
     @Setter
     @JsonProperty
-    @NotNull(message = "validation.Usuario.posto.NotNull.message")
+    @NotNull(message = "validation.User.post.NotNull.message")
     @Column(nullable = false, length = ModelConstants.COLUMN_SIZE_20)
-    @Size(min = ModelConstants.FIELD_SIZE_1,
-        max = ModelConstants.FIELD_SIZE_20,
-        message = "validation.Usuario.posto.Size.message")
-    private String posto;
+    @Size(min = ModelConstants.FIELD_SIZE_1, max = ModelConstants.FIELD_SIZE_20,
+            message = "validation.User.post.Size.message")
+    private String post;
 
     @Getter
     @Setter
     @JsonProperty
-    @NotNull(message = "validation.Usuario.siglaSecao.NotNull.message")
-    @Column(nullable = false, length = ModelConstants.COLUMN_SIZE_15, name = "sigla_secao")
-    @Size(min = ModelConstants.FIELD_SIZE_1,
-        max = ModelConstants.FIELD_SIZE_15,
-        message = "validation.Usuario.siglaSecao.Size.message")
-    private String siglaSecao;
+    @NotNull(message = "validation.User.sectorAcronym.NotNull.message")
+    @Column(nullable = false, length = ModelConstants.COLUMN_SIZE_15, name = "sector_acronym")
+    @Size(min = ModelConstants.FIELD_SIZE_1, max = ModelConstants.FIELD_SIZE_15,
+            message = "validation.User.sectorAcronym.Size.message")
+    private String sectorAcronym;
 
     @Getter
     @Setter
     @JsonProperty
-    @Column(length = ModelConstants.COLUMN_SIZE_30, name = "telefone_celular")
-    @Pattern(regexp = ModelConstants.TELEFONE_REGEX, message = "validation.Usuario.telefoneCelular.Telefone.message")
-    private String telefoneCelular;
+    @Column(length = ModelConstants.COLUMN_SIZE_30, name = "cell_phone")
+    @Pattern(regexp = ModelConstants.PHONE_PATTERN, message = "validation.User.cellPhone.Phone.message")
+    private String cellPhone;
 
     @Getter
     @Setter
     @JsonProperty
-    @Column(length = ModelConstants.COLUMN_SIZE_30, name = "telefone_fixo")
-    @Pattern(regexp = ModelConstants.TELEFONE_REGEX, message = "validation.Usuario.telefoneFixo.Telefone.message")
-    private String telefoneFixo;
+    @Column(length = ModelConstants.COLUMN_SIZE_30, name = "land_line")
+    @Pattern(regexp = ModelConstants.PHONE_PATTERN, message = "validation.User.landLine.Phone.message")
+    private String landLine;
 
-    /* informações para login do usuário */
+    /* TODO separar informações para login do usuário */
     @Getter
     @Setter
     @JsonProperty
-    @NotNull(message = "validation.Usuario.usuario.NotNull.message")
+    @NotNull(message = "validation.User.login.NotNull.message")
     @Column(length = ModelConstants.COLUMN_SIZE_45, nullable = false, updatable = false)
-    @Size(min = ModelConstants.FIELD_SIZE_1,
-        max = ModelConstants.FIELD_SIZE_45,
-        message = "validation.Usuario.usuario.Size.message")
-    private String usuario;
+    @Size(min = ModelConstants.FIELD_SIZE_1, max = ModelConstants.FIELD_SIZE_45,
+            message = "validation.User.login.Size.message")
+    private String login;
 
     @Getter
     @Setter
     @JsonProperty
-    @NotNull(message = "validation.Usuario.senha.NotNull.message")
+    @NotNull(message = "validation.User.password.NotNull.message")
     @Column(length = ModelConstants.COLUMN_SIZE_40, nullable = false)
-    @Size(min = ModelConstants.FIELD_SIZE_40,
-        max = ModelConstants.FIELD_SIZE_40,
-        message = "validation.Usuario.senha.Size.message")
-    private String senha;
+    @Size(min = ModelConstants.FIELD_SIZE_40, max = ModelConstants.FIELD_SIZE_40,
+            message = "validation.User.password.Size.message")
+    private String password;
 
     @Getter
     @Setter
     @JsonProperty
     @Column(nullable = false)
-    @NotNull(message = "validation.Usuario.ativo.NotNull.message")
-    private Boolean ativo;
+    @NotNull(message = "validation.User.active.NotNull.message")
+    private Boolean active;
 
 }

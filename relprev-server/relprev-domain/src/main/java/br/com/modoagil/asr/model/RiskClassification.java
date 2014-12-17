@@ -1,8 +1,4 @@
-package br.com.modoagil.model;
-
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+package br.com.modoagil.asr.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,10 +6,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import br.com.modoagil.model.support.AbstractEntity;
-import br.com.modoagil.model.support.ModelConstants;
-import br.com.modoagil.model.support.annotation.Hiddenable;
-import br.com.modoagil.model.support.annotation.Updatable;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import br.com.modoagil.asr.model.support.AbstractEntity;
+import br.com.modoagil.asr.model.support.ModelConstants;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -21,18 +18,16 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Entidade para persistência e representação JSON sobre da Classificação de Risco
+ * JPA entity and JSON model for risk classification
  *
  * @since 07/12/2014
  * @author Bruno César Ribeiro e Silva - <a href="mailto:bruno@brunocesar.com">bruno@brunocesar.com</a>
  */
 @Entity
-@Hiddenable
 @JsonInclude(Include.NON_EMPTY)
 @EqualsAndHashCode(callSuper = true)
-@Table(name = "classificacoes_risco")
-@Updatable(newinsert = true, updatable = false)
-public class ClassificacaoRisco extends AbstractEntity<ClassificacaoRisco> {
+@Table(name = "risk_classifications")
+public class RiskClassification extends AbstractEntity {
 
     private static final long serialVersionUID = 80193580056312692L;
 
@@ -40,19 +35,19 @@ public class ClassificacaoRisco extends AbstractEntity<ClassificacaoRisco> {
     @Setter
     @JsonIgnore
     @ManyToOne(optional = false)
-    @JoinColumn(name = "relprev_id")
-    private RelatorioPrevencao relPrev;
+    @JoinColumn(name = "asr_id")
+    private AirSafetyReport report;
 
     @Getter
     @Setter
     @JsonProperty
-    @Column(name = "avaliacao_inicial", length = ModelConstants.COLUMN_SIZE_2)
-    private String avaliacaoInicial;
+    @Column(name = "initial_evaluation", length = ModelConstants.COLUMN_SIZE_2)
+    private String initialEvaluation;
 
     @Getter
     @Setter
     @JsonProperty
-    @Column(name = "avaliacao_final", length = ModelConstants.COLUMN_SIZE_2)
-    private String avaliacaoFinal;
+    @Column(name = "final_evaluation", length = ModelConstants.COLUMN_SIZE_2)
+    private String finalEvaluation;
 
 }

@@ -1,8 +1,4 @@
-package br.com.modoagil.model;
-
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+package br.com.modoagil.asr.model;
 
 import java.util.Date;
 import java.util.Set;
@@ -17,16 +13,16 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
-import br.com.modoagil.model.support.AbstractEntity;
-import br.com.modoagil.model.support.Anexo;
-import br.com.modoagil.model.support.ModelConstants;
-import br.com.modoagil.model.support.annotation.Hiddenable;
-import br.com.modoagil.model.support.annotation.Updatable;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import br.com.modoagil.asr.model.support.AbstractEntity;
+import br.com.modoagil.asr.model.support.Attachment;
+import br.com.modoagil.asr.model.support.ModelConstants;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -35,167 +31,117 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 /**
- * Entidade para persistência e retorno de JSON de relatórios de prevenção
+ * JPA entity and JSON model for air safety report
  *
  * @since 07/12/2014
  * @author Bruno César Ribeiro e Silva - <a href="mailto:bruno@brunocesar.com">bruno@brunocesar.com</a>
  */
 @Entity
-@Hiddenable
 @JsonInclude(Include.NON_EMPTY)
-@JsonRootName(value = "relPrev")
+@JsonRootName(value = "asr")
 @EqualsAndHashCode(callSuper = true)
-@Table(name = "relatorios_prevencao")
-@Updatable(newinsert = true, updatable = false)
-public class RelatorioPrevencao extends AbstractEntity<RelatorioPrevencao> {
+@Table(name = "air_safety_reports")
+public class AirSafetyReport extends AbstractEntity {
 
     private static final long serialVersionUID = -2567465353998731784L;
 
-    private static final String RELPREV = "relPrev";
+    private static final String ASR = "report";
 
     @Getter
     @Setter
     @JsonProperty
     @Column(nullable = false, length = ModelConstants.COLUMN_SIZE_60)
-    @NotNull(message = "validation.RelatorioPrevencao.envolvidos.NotNull.message")
-    @Size(min = ModelConstants.FIELD_SIZE_1,
-        max = ModelConstants.FIELD_SIZE_60,
-        message = "validation.RelatorioPrevencao.envolvidos.Size.message")
-    private String envolvidos;
+    @NotNull(message = "validation.AirSafetyReport.involveds.NotNull.message")
+    @Size(min = ModelConstants.FIELD_SIZE_1, max = ModelConstants.FIELD_SIZE_60,
+            message = "validation.AirSafetyReport.involveds.Size.message")
+    private String involveds;
 
     @Getter
     @Setter
     @JsonProperty
     @Column(nullable = false, length = ModelConstants.COLUMN_SIZE_60)
-    @NotNull(message = "validation.RelatorioPrevencao.local.NotNull.message")
-    @Size(min = ModelConstants.FIELD_SIZE_1,
-        max = ModelConstants.FIELD_SIZE_60,
-        message = "validation.RelatorioPrevencao.local.Size.message")
-    private String local;
+    @NotNull(message = "validation.AirSafetyReport.place.NotNull.message")
+    @Size(min = ModelConstants.FIELD_SIZE_1, max = ModelConstants.FIELD_SIZE_60,
+            message = "validation.AirSafetyReport.place.Size.message")
+    private String place;
 
     @Getter
     @Setter
-    @JsonProperty(value = "descricao")
-    @Column(nullable = false, name = "descricao", length = ModelConstants.COLUMN_SIZE_600)
-    @NotNull(message = "validation.RelatorioPrevencao.descricaoSituacaoPerigosa.NotNull.message")
-    @Size(min = ModelConstants.FIELD_SIZE_1,
-        max = ModelConstants.FIELD_SIZE_600,
-        message = "validation.RelatorioPrevencao.descricaoSituacaoPerigosa.Size.message")
-    private String descricaoSituacaoPerigosa;
+    @JsonProperty(value = "description")
+    @Column(nullable = false, name = "description", length = ModelConstants.COLUMN_SIZE_600)
+    @NotNull(message = "validation.AirSafetyReport.description.NotNull.message")
+    @Size(min = ModelConstants.FIELD_SIZE_1, max = ModelConstants.FIELD_SIZE_600,
+            message = "validation.AirSafetyReport.description.Size.message")
+    private String description;
 
     @Getter
     @Setter
-    @JsonProperty(value = "data")
+    @JsonProperty(value = "dataTime")
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = false, name = "data")
-    @Past(message = "validation.RelatorioPrevencao.dataSituacaoPerigosa.Past.message")
-    @NotNull(message = "validation.RelatorioPrevencao.dataSituacaoPerigosa.NotNull.message")
-    private Date dataSituacaoPerigosa;
+    @Column(nullable = false, name = "data_time")
+    @Past(message = "validation.AirSafetyReport.dateTime.Past.message")
+    @NotNull(message = "validation.AirSafetyReport.dateTime.NotNull.message")
+    private Date dateTime;
 
     @Getter
     @Setter
-    @JsonProperty(value = "situacao")
-    @Column(name = "situacao", length = ModelConstants.COLUMN_SIZE_5000)
-    private String situacao;
+    @JsonProperty
+    @Column(name = "status", length = ModelConstants.COLUMN_SIZE_5000)
+    private String status;
 
     @ManyToOne
     @JsonProperty
-    @JoinColumn(name = "elosipaer_id")
-    // TODO não existe na EOR esta associação. Confirmar como ficará
-    private EloSipaer eloSipaer;
+    @JoinColumn(name = "sipaer_link_id")
+    private SIPAERLink sipaerLink;
 
     @Getter
     @Setter
     @JsonProperty
-    @JoinColumn(name = "relator_id")
+    @JoinColumn(name = "reporter_id")
     @ManyToOne(cascade = CascadeType.ALL)
-    private Relator relator;
+    private Reporter reporter;
 
     @Getter
     @Setter
-    @JsonProperty
-    @JoinColumn(name = "situacoes_id")
-    @NotNull(message = "validation.RelatorioPrevencao.situacoes.NotNull.message")
-    @ManyToOne(cascade = CascadeType.PERSIST, optional = false, fetch = FetchType.EAGER)
-    private Situacao situacoes;
-
-    @Getter
-    @Setter
-    @JoinColumn(name = "relprev_id")
-    @JsonProperty(value = "anexos")
-    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    private Set<Anexo> anexos;
+    @JoinColumn(name = "asr_id")
+    @JsonProperty(value = "attachments")
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    private Set<Attachment> attachments;
 
     @Getter
     @Setter
     @JsonIgnore
-    @OneToMany(mappedBy = RELPREV, fetch = FetchType.EAGER)
-    private Set<AcaoRecomendada> acoesRecomendadas;
-
-    @Getter
-    @Setter
-    @Transient
-    @JsonProperty
-    private AcaoRecomendada acaoRecomendada;
+    @OneToMany(mappedBy = ASR, fetch = FetchType.LAZY)
+    private Set<RecommendedAction> recommendedActions;
 
     @Getter
     @Setter
     @JsonIgnore
-    @OneToMany(mappedBy = RELPREV, fetch = FetchType.EAGER)
-    private Set<ClassificacaoRisco> classificacoesRisco;
-
-    @Getter
-    @Setter
-    @Transient
-    @JsonProperty
-    private ClassificacaoRisco classificacaoRisco;
+    @OneToMany(mappedBy = ASR, fetch = FetchType.LAZY)
+    private Set<RiskClassification> riskClassifications;
 
     @Getter
     @Setter
     @JsonIgnore
-    @OneToMany(mappedBy = RELPREV, fetch = FetchType.EAGER)
-    private Set<Encaminhamento> encaminhamentos;
-
-    @Getter
-    @Setter
-    @Transient
-    @JsonProperty
-    private Encaminhamento encaminhamento;
+    @OneToMany(mappedBy = ASR, fetch = FetchType.LAZY)
+    private Set<Forwarding> forwardings;
 
     @Getter
     @Setter
     @JsonIgnore
-    @OneToMany(mappedBy = RELPREV, fetch = FetchType.EAGER)
-    private Set<Observacao> observacoes;
-
-    @Getter
-    @Setter
-    @Transient
-    @JsonProperty
-    private Observacao observacao;
+    @OneToMany(mappedBy = ASR, fetch = FetchType.LAZY)
+    private Set<AirSafetyObservation> observations;
 
     @Getter
     @Setter
     @JsonIgnore
-    @OneToMany(mappedBy = RELPREV, fetch = FetchType.EAGER)
-    private Set<ParecerSetor> pareceresSetor;
-
-    @Getter
-    @Setter
-    @Transient
-    @JsonProperty
-    private ParecerSetor parecerSetor;
+    @OneToMany(mappedBy = ASR, fetch = FetchType.LAZY)
+    private Set<SectorOpinion> sectorOpinions;
 
     @Getter
     @Setter
     @JsonIgnore
-    @OneToMany(mappedBy = RELPREV, fetch = FetchType.EAGER)
-    private Set<Resposta> respostas;
-
-    @Getter
-    @Setter
-    @Transient
-    @JsonProperty
-    private Resposta resposta;
+    @OneToMany(mappedBy = ASR, fetch = FetchType.LAZY)
+    private Set<AirSafetyAnswer> answers;
 
 }

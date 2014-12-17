@@ -1,7 +1,7 @@
-package br.com.modoagil.model.support;
+package br.com.modoagil.asr.model.support;
 
 /**
- * Constantes usadas no modelo de entidades
+ * Constants used on entity model
  *
  * @since 07/12/2014
  * @author Bruno César Ribeiro e Silva - <a href="mailto:bruno@brunocesar.com">bruno@brunocesar.com</a>
@@ -11,108 +11,113 @@ public final class ModelConstants {
     private ModelConstants() {}
 
     /**
-     * Constante para coluna JPA de tamanho 2
+     * Constant for JPA column with size equals 2
      */
     public static final int COLUMN_SIZE_2 = 2;
 
     /**
-     * Constante para coluna JPA de tamanho 15
+     * Constant for JPA column with size equals 15
      */
     public static final int COLUMN_SIZE_15 = 15;
 
     /**
-     * Constante para coluna JPA de tamanho 20
+     * Constant for JPA column with size equals 20
      */
     public static final int COLUMN_SIZE_20 = 20;
 
     /**
-     * Constante para coluna JPA de tamanho 30
+     * Constant for JPA column with size equals 30
      */
     public static final int COLUMN_SIZE_30 = 30;
 
     /**
-     * Constante para coluna JPA de tamanho 40
+     * Constant for JPA column with size equals 40
      */
     public static final int COLUMN_SIZE_40 = 40;
 
     /**
-     * Constante para coluna JPA de tamanho 45
+     * Constant for JPA column with size equals 45
      */
     public static final int COLUMN_SIZE_45 = 45;
 
     /**
-     * Constante para coluna JPA de tamanho 50
+     * Constant for JPA column with size equals 50
      */
     public static final int COLUMN_SIZE_50 = 50;
 
     /**
-     * Constante para coluna JPA de tamanho 60
+     * Constant for JPA column with size equals 60
      */
     public static final int COLUMN_SIZE_60 = 60;
 
     /**
-     * Constante para coluna JPA de tamanho 120
+     * Constant for JPA column with size equals 120
      */
     public static final int COLUMN_SIZE_120 = 120;
 
     /**
-     * Constante para coluna JPA de tamanho 600
+     * Constant for JPA column with size equals 600
      */
     public static final int COLUMN_SIZE_600 = 600;
 
     /**
-     * Constante para coluna JPA de tamanho 5000
+     * Constant for JPA column with size equals 5000
      */
     public static final int COLUMN_SIZE_5000 = 5000;
 
     /**
-     * Constante para campo de tamanho mínimo ou máximo (bean validation) igual a 1
+     * Constant for bean validation on field with minimum OR maximum of 1
      */
     public static final int FIELD_SIZE_1 = 1;
 
     /**
-     * Constante para campo de tamanho mínimo ou máximo (bean validation) igual a 15
+     * Constant for bean validation on field with minimum OR maximum of 15
      */
     public static final int FIELD_SIZE_15 = 15;
 
     /**
-     * Constante para campo de tamanho mínimo ou máximo (bean validation) igual a 20
+     * Constant for bean validation on field with minimum OR maximum of 20
      */
     public static final int FIELD_SIZE_20 = COLUMN_SIZE_20;
 
     /**
-     * Constante para campo de tamanho mínimo ou máximo (bean validation) igual a 30
+     * Constant for bean validation on field with minimum OR maximum of 30
      */
     public static final int FIELD_SIZE_30 = COLUMN_SIZE_30;
 
     /**
-     * Constante para campo de tamanho mínimo ou máximo (bean validation) igual a 40
+     * Constant for bean validation on field with minimum OR maximum of 40
      */
     public static final int FIELD_SIZE_40 = COLUMN_SIZE_40;
 
     /**
-     * Constante para campo de tamanho mínimo ou máximo (bean validation) igual a 45
+     * Constant for bean validation on field with minimum OR maximum of 45
      */
     public static final int FIELD_SIZE_45 = COLUMN_SIZE_45;
 
     /**
-     * Constante para campo de tamanho mínimo ou máximo (bean validation) igual a 50
+     * Constant for bean validation on field with minimum OR maximum of 50
      */
     public static final int FIELD_SIZE_50 = COLUMN_SIZE_50;
 
     /**
-     * Constante para campo de tamanho mínimo ou máximo (bean validation) igual a 60
+     * Constant for bean validation on field with minimum OR maximum of 60
      */
     public static final int FIELD_SIZE_60 = COLUMN_SIZE_60;
 
     /**
-     * Constante para campo de tamanho mínimo ou máximo (bean validation) igual a 600
+     * Constant for bean validation on field with minimum OR maximum of 600
      */
     public static final int FIELD_SIZE_600 = COLUMN_SIZE_600;
 
     /**
-     * Constante que representa o padrão de telefone (bean validation) a ser usado na aplicação
+     * Constant for bean validation on phone fields
      */
-    public static final String TELEFONE_REGEX = "([1-9]{2})?([0-9]{8,9})";
+    public static final String PHONE_PATTERN = "([1-9]{2})?([0-9]{8,9})";
+
+    /**
+     * Constant for bean validation on email fields
+     */
+    public static final String EMAIL_PATTERN = "[a-zA-Z0-9_\\-\\.]+@[a-zA-Z0-9_\\-\\.]+\\.[a-zA-Z]{2,5}";
 
 }

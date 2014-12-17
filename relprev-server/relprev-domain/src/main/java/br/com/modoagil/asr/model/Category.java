@@ -1,8 +1,4 @@
-package br.com.modoagil.model;
-
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+package br.com.modoagil.asr.model;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,28 +10,27 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import br.com.modoagil.model.support.AbstractEntity;
-import br.com.modoagil.model.support.ModelConstants;
-import br.com.modoagil.model.support.annotation.Hiddenable;
-import br.com.modoagil.model.support.annotation.Updatable;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import br.com.modoagil.asr.model.support.AbstractEntity;
+import br.com.modoagil.asr.model.support.ModelConstants;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Entidade para persistência e retorno de JSON de Categoria
+ * JPA entity and JSON model for categories
  *
  * @since 07/12/2014
  * @author Bruno César Ribeiro e Silva - <a href="mailto:bruno@brunocesar.com">bruno@brunocesar.com</a>
  */
 @Entity
-@Hiddenable
-@Table(name = "categorias")
+@Table(name = "categories")
 @JsonInclude(Include.NON_EMPTY)
 @EqualsAndHashCode(callSuper = true)
-@Updatable(newinsert = true, updatable = false)
-public class Categoria extends AbstractEntity<Categoria> {
+public class Category extends AbstractEntity {
 
     private static final long serialVersionUID = 2429958840047244813L;
 
@@ -43,22 +38,22 @@ public class Categoria extends AbstractEntity<Categoria> {
     @Setter
     @JsonProperty
     @OneToOne(optional = true)
-    @JoinColumn(name = "categoria_pai")
-    private Categoria categoriaPai;
+    @JoinColumn(name = "parent")
+    private Category parent;
 
     @Getter
     @Setter
     @JsonProperty
-    @JoinColumn(name = "taxonomia_id")
+    @JoinColumn(name = "taxonomy_id")
     @ManyToOne(cascade = CascadeType.ALL, optional = false)
-    private Taxonomia taxonomia;
+    private Taxonomy taxonomy;
 
     @Getter
     @Setter
     @JsonProperty
     @Column(nullable = false)
-    @NotNull(message = "validation.Categoria.nome.NotNull.message")
-    @Size(min = ModelConstants.FIELD_SIZE_1, message = "validation.Categoria.nome.Size.message")
-    private String nome;
+    @NotNull(message = "validation.Category.name.NotNull.message")
+    @Size(min = ModelConstants.FIELD_SIZE_1, message = "validation.Category.name.Size.message")
+    private String name;
 
 }

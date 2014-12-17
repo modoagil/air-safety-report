@@ -1,8 +1,4 @@
-package br.com.modoagil.model;
-
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+package br.com.modoagil.asr.model;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,11 +9,12 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import br.com.modoagil.model.security.Usuario;
-import br.com.modoagil.model.support.AbstractEntity;
-import br.com.modoagil.model.support.ModelConstants;
-import br.com.modoagil.model.support.annotation.Hiddenable;
-import br.com.modoagil.model.support.annotation.Updatable;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import br.com.modoagil.asr.model.security.User;
+import br.com.modoagil.asr.model.support.AbstractEntity;
+import br.com.modoagil.asr.model.support.ModelConstants;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -26,45 +23,43 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 /**
- * Entidade para persistência e representação JSON de um Elo SIPAER
+ * JPA entity and JSON model for System Aeronautical Accident Investigation and Prevention (SIPAER, in portuguese)
  *
  * @since 07/12/2014
  * @author Bruno César Ribeiro e Silva - <a href="mailto:bruno@brunocesar.com">bruno@brunocesar.com</a>
  */
 @Entity
-@Hiddenable
-@Table(name = "elos_sipaer")
+@Table(name = "sipaer_link")
 @JsonInclude(Include.NON_EMPTY)
-@JsonRootName(value = "eloSipaer")
+@JsonRootName(value = "SIPAERLink")
 @EqualsAndHashCode(callSuper = true)
-@Updatable(newinsert = true, updatable = false)
-public class EloSipaer extends AbstractEntity<EloSipaer> {
+public class SIPAERLink extends AbstractEntity {
 
     private static final long serialVersionUID = 3850763253702817582L;
 
     @Getter
     @Setter
     @JsonIgnore
-    @JoinColumn(name = "usuario_id")
+    @JoinColumn(name = "user_id")
     @ManyToOne(cascade = CascadeType.ALL)
-    private Usuario usuario;
+    private User user;
 
     @Getter
     @Setter
     @JsonProperty
     @Column(nullable = false, length = ModelConstants.COLUMN_SIZE_20)
-    @NotNull(message = "validation.EloSipaer.organizacao.NotNull.message")
+    @NotNull(message = "validation.SIPAERLink.organization.NotNull.message")
     @Size(min = ModelConstants.FIELD_SIZE_1, max = ModelConstants.FIELD_SIZE_20,
-        message = "validation.EloSipaer.organizacao.Size.message")
-    private String organizacao;
+            message = "validation.SIPAERLink.organization.Size.message")
+    private String organization;
 
     @Getter
     @Setter
-    @JsonProperty(value = "sigla")
-    @Column(name = "sigla_organizacao", nullable = false, length = ModelConstants.COLUMN_SIZE_20)
-    @NotNull(message = "validation.EloSipaer.siglaOrganizacao.NotNull.message")
+    @JsonProperty(value = "acronym")
+    @Column(name = "organization_acronym", nullable = false, length = ModelConstants.COLUMN_SIZE_20)
+    @NotNull(message = "validation.SIPAERLink.organizationAcronym.NotNull.message")
     @Size(min = ModelConstants.FIELD_SIZE_1, max = ModelConstants.FIELD_SIZE_20,
-        message = "validation.EloSipaer.siglaOrganizacao.Size.message")
-    private String siglaOrganizacao;
+            message = "validation.SIPAERLink.organizationAcronym.Size.message")
+    private String organizationAcronym;
 
 }

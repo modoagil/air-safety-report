@@ -1,8 +1,4 @@
-package br.com.modoagil.model;
-
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+package br.com.modoagil.asr.model;
 
 import java.util.Date;
 
@@ -16,10 +12,11 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import br.com.modoagil.model.support.AbstractEntity;
-import br.com.modoagil.model.support.ModelConstants;
-import br.com.modoagil.model.support.annotation.Hiddenable;
-import br.com.modoagil.model.support.annotation.Updatable;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import br.com.modoagil.asr.model.support.AbstractEntity;
+import br.com.modoagil.asr.model.support.ModelConstants;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -28,19 +25,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 /**
- * Entidade para persistência e representação JSON sobre as ações recomendadas pelo OSV sobre a situação de Risco
+ * JPA entity and JSON model for recommended actions by the official flight safety (OSV)
  *
  * @since 07/12/2014
  * @author Bruno César Ribeiro e Silva - <a href="mailto:bruno@brunocesar.com">bruno@brunocesar.com</a>
  */
 @Entity
-@Hiddenable
-@JsonRootName(value = "acao")
+@JsonRootName(value = "actions")
 @JsonInclude(Include.NON_EMPTY)
-@Table(name = "acoes_recomendadas")
+@Table(name = "recommended_actions")
 @EqualsAndHashCode(callSuper = true)
-@Updatable(newinsert = true, updatable = false)
-public class AcaoRecomendada extends AbstractEntity<AcaoRecomendada> {
+public class RecommendedAction extends AbstractEntity {
 
     private static final long serialVersionUID = 485557117602416591L;
 
@@ -48,45 +43,42 @@ public class AcaoRecomendada extends AbstractEntity<AcaoRecomendada> {
     @Setter
     @JsonIgnore
     @ManyToOne(optional = false)
-    @JoinColumn(name = "relprev_id")
-    private RelatorioPrevencao relPrev;
+    @JoinColumn(name = "asr_id")
+    private AirSafetyReport report;
 
     @Getter
     @Setter
     @JsonProperty
     @Column(length = ModelConstants.COLUMN_SIZE_60, nullable = false)
-    @NotNull(message = "validation.AcaoRecomendada.remetente.NotNull.message")
-    @Size(min = ModelConstants.FIELD_SIZE_1,
-        max = ModelConstants.FIELD_SIZE_60,
-        message = "validation.AcaoRecomendada.remetente.Size.message")
-    private String remetente;
+    @NotNull(message = "validation.RecommendedAction.sender.NotNull.message")
+    @Size(min = ModelConstants.FIELD_SIZE_1, max = ModelConstants.FIELD_SIZE_60,
+            message = "validation.RecommendedAction.sender.Size.message")
+    private String sender;
 
     @Getter
     @Setter
     @JsonProperty
     @Column(length = ModelConstants.COLUMN_SIZE_60, nullable = false)
-    @NotNull(message = "validation.AcaoRecomendada.destinatario.NotNull.message")
-    @Size(min = ModelConstants.FIELD_SIZE_1,
-        max = ModelConstants.FIELD_SIZE_60,
-        message = "validation.AcaoRecomendada.destinatario.Size.message")
-    private String destinatario;
+    @NotNull(message = "validation.RecommendedAction.addressee.NotNull.message")
+    @Size(min = ModelConstants.FIELD_SIZE_1, max = ModelConstants.FIELD_SIZE_60,
+            message = "validation.RecommendedAction.addressee.Size.message")
+    private String addressee;
 
     @Getter
     @Setter
     @JsonProperty
     @Column(length = ModelConstants.COLUMN_SIZE_600, nullable = false)
-    @NotNull(message = "validation.AcaoRecomendada.descricao.NotNull.message")
-    @Size(min = ModelConstants.FIELD_SIZE_1,
-        max = ModelConstants.FIELD_SIZE_600,
-        message = "validation.AcaoRecomendada.descricao.Size.message")
-    private String descricao;
+    @NotNull(message = "validation.RecommendedAction.description.NotNull.message")
+    @Size(min = ModelConstants.FIELD_SIZE_1, max = ModelConstants.FIELD_SIZE_600,
+            message = "validation.RecommendedAction.description.Size.message")
+    private String description;
 
     @Getter
     @Setter
     @JsonProperty
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
-    @NotNull(message = "validation.AcaoRecomendada.data.NotNull.message")
-    private Date data;
+    @NotNull(message = "validation.RecommendedAction.date.NotNull.message")
+    private Date date;
 
 }
