@@ -1,3 +1,18 @@
+/*
+ *     Copyright 2014 Modo Ágil
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
 package br.com.modoagil.asr.model;
 
 import java.util.Date;
@@ -51,7 +66,7 @@ public class AirSafetyAnswer extends AbstractEntity {
     @Column(length = ModelConstants.COLUMN_SIZE_60, nullable = false)
     @NotNull(message = "validation.AirSafetyAnswer.sender.NotNull.message")
     @Size(min = ModelConstants.FIELD_SIZE_1, max = ModelConstants.FIELD_SIZE_60,
-            message = "validation.AirSafetyAnswer.sender.Size.message")
+    message = "validation.AirSafetyAnswer.sender.Size.message")
     private String sender;
 
     @Getter
@@ -60,7 +75,7 @@ public class AirSafetyAnswer extends AbstractEntity {
     @Column(length = ModelConstants.COLUMN_SIZE_60, nullable = false)
     @NotNull(message = "validation.AirSafetyAnswer.addressee.NotNull.message")
     @Size(min = ModelConstants.FIELD_SIZE_1, max = ModelConstants.FIELD_SIZE_60,
-            message = "validation.AirSafetyAnswer.addressee.Size.message")
+    message = "validation.AirSafetyAnswer.addressee.Size.message")
     private String addressee;
 
     @Getter
@@ -69,7 +84,7 @@ public class AirSafetyAnswer extends AbstractEntity {
     @Column(length = ModelConstants.COLUMN_SIZE_600, nullable = false)
     @NotNull(message = "validation.AirSafetyAnswer.description.NotNull.message")
     @Size(min = ModelConstants.FIELD_SIZE_1, max = ModelConstants.FIELD_SIZE_600,
-            message = "validation.AirSafetyAnswer.description.Size.message")
+    message = "validation.AirSafetyAnswer.description.Size.message")
     private String description;
 
     @Getter
