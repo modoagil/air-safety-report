@@ -25,7 +25,7 @@
         <constructor-arg ref="hikariConfig" />
     </bean>
 
-    <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig" p:minimumPoolSize="2" p:maximumPoolSize="20" p:dataSourceClassName="${jdbc.datasource.classname}" 
+    <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig" p:minimumPoolSize="2" p:maximumPoolSize="20" p:dataSourceClassName="${jdbc.datasource.classname}"
         p:dataSourceProperties-ref="dsProperties" p:poolName="asrHikariCP" />
 
     <util:properties id="dsProperties" location="classpath:datasource.properties" />
@@ -43,7 +43,8 @@
 
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager" p:entityManagerFactory-ref="entityManagerFactory" />
 
-    <jpa:repositories base-package="br.com.modoagil.repository,br.com.modoagil.repository.support" factory-class="br.com.modoagil.repository.support.factory.RepositoryFactoryBean"
+    <jpa:repositories base-package="br.com.modoagil.asr.repository,br.com.modoagil.asr.repository.support"
+        factory-class="br.com.modoagil.asr.repository.support.factory.RepositoryFactoryBean"
         transaction-manager-ref="transactionManager" entity-manager-factory-ref="entityManagerFactory" />
 
 </beans>
