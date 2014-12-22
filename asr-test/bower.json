@@ -1,0 +1,17 @@
+{
+  "name": "asr-test",
+  "version": "0.0.1",
+  "homepage": "https://github.com/modoagil/air-safety-report",
+  "authors": [
+    "Bruno César <bruno@brunocesar.com> (http://brunocesar.com)",
+    "Antônio Carlos <acarlossw@gmail.com>"
+  ],
+  "description": "Air Safety Report Test Project",
+  "license": "Apache-2.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "devDependencies": {}
+}

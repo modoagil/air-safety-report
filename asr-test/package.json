@@ -1,0 +1,23 @@
+{
+  "name": "asr-test",
+  "description": "Air Safety Report Test Project",
+  "authors": [
+    "Bruno César <bruno@brunocesar.com> (http://brunocesar.com)",
+    "Antônio Carlos <acarlossw@gmail.com>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modoagil/air-safety-report/tree/master/asr-test"
+  },
+  "bugs": {
+    "url": "https://github.com/modoagil/air-safety-report/issues"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "bower": "^1.3.12",
+    "gulp": "^3.8.10",
+    "protractor": "^1.5.0"
+  },
+  "preferGlobal": true,
+  "licence": "Apache-2.0"
+}
