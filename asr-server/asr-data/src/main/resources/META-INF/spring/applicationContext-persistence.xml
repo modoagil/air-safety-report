@@ -25,7 +25,7 @@
         <constructor-arg ref="hikariConfig" />
     </bean>
 
-    <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig" p:minimumPoolSize="2" p:maximumPoolSize="20" p:dataSourceClassName="${jdbc.datasource.classname}"
+    <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig" p:minimumPoolSize="2" p:maximumPoolSize="20" p:dataSourceClassName="@jdbc.datasource.classname@"
         p:dataSourceProperties-ref="dsProperties" p:poolName="asrHikariCP" />
 
     <util:properties id="dsProperties" location="classpath:datasource.properties" />

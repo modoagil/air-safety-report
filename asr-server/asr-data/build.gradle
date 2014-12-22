@@ -14,6 +14,74 @@
 
 description = 'Air Safety Report - Data'
 
+import org.apache.tools.ant.filters.ReplaceTokens
+
+task devProperties(type: Copy) {
+    
+    from ('src/main/resources') {
+        include '**/*.properties'
+        include '**/*.xml'
+
+        filter ReplaceTokens, tokens: [
+            'hibernate.dialect': 'org.hibernate.dialect.PostgreSQL9Dialect',
+            'hibernate.show.sql': 'true',
+            'hibernate.format.sql': 'true',
+            'hibernate.generate_statistics': 'true',
+            'hibernate.use_sql_comments': 'true',
+
+            'jdbc.datasource.classname': 'org.postgresql.ds.PGSimpleDataSource',
+            'jdbc.url': 'jdbc:postgresql://localhost:5432/air_safety_report',
+            'jdbc.username': 'postgres',
+            'jdbc.password': 'postgres'
+        ]
+    }
+
+    into 'build/resources/main'
+
+}
+
+task prodProperties(type: Copy) {
+    
+    from ('src/main/resources') {
+        include '**/*.properties'
+        include '**/*.xml'
+
+        filter ReplaceTokens, tokens: [
+            'hibernate.dialect': 'org.hibernate.dialect.PostgreSQL9Dialect',
+            'hibernate.show.sql': 'false',
+            'hibernate.format.sql': 'false',
+            'hibernate.generate_statistics': 'false',
+            'hibernate.use_sql_comments': 'false',
+
+            'jdbc.datasource.classname': 'org.postgresql.ds.PGSimpleDataSource'
+        ]
+    }
+
+    into 'build/resources/main'
+
+}
+
+task prodOracleProperties(type: Copy) {
+    
+    from ('src/main/resources') {
+        include '**/*.properties'
+        include '**/*.xml'
+
+        filter ReplaceTokens, tokens: [
+            'hibernate.dialect': 'org.hibernate.dialect.Oracle10gDialect',
+            'hibernate.show.sql': 'false',
+            'hibernate.format.sql': 'false',
+            'hibernate.generate_statistics': 'false',
+            'hibernate.use_sql_comments': 'false',
+
+            'jdbc.datasource.classname': 'oracle.jdbc.pool.OracleDataSource'
+        ]
+    }
+
+    into 'build/resources/main'
+
+}
+
 dependencies {
 
     compile project(':asr-core'),
