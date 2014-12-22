@@ -6,7 +6,7 @@ var minifyCss = require('gulp-minify-css');
 
 var config = {
     sassPath: './resources/sass',
-    bowerDir: './bower_components'
+    bowerDir: 'lib/'
 }
 
 gulp.task('bower', function() {
