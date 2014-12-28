@@ -12,6 +12,6 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
-rootProject.name = 'asr-server'
+rootProject.name = 'air-safety-report-server'
 
 include 'asr-core', 'asr-domain', 'asr-data', 'asr-services'
